@@ -1,0 +1,71 @@
+using System;
+using System.Collections.Generic;
+
+namespace TodoList
+{
+    class Program
+    {
+        static List<string> tasks = new List<string>();
+
+        static void Main(string[] args)
+        {
+            while (true)
+            {
+                Console.WriteLine("\n1. Add Task");
+                Console.WriteLine("2. View Tasks");
+                Console.WriteLine("3. Delete Task");
+                Console.WriteLine("4. Exit");
+
+                switch (Console.ReadLine())
+                {
+                    case "1":
+                        AddTask();
+                        break;
+                    case "2":
+                        ViewTasks();
+                        break;
+                    case "3":
+                        DeleteTask();
+                        break;
+                    case "4":
+                        return;
+                    default:
+                        Console.WriteLine("Invalid option. Try again.");
+                        break;
+                }
+            }
+        }
+
+        static void AddTask()
+        {
+            Console.WriteLine("Enter a new task:");
+            string task = Console.ReadLine();
+            tasks.Add(task);
+        }
+
+        static void ViewTasks()
+        {
+            Console.WriteLine("\nTasks:");
+            for (int i = 0; i < tasks.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {tasks[i]}");
+            }
+        }
+
+        static void DeleteTask()
+        {
+            ViewTasks();
+            Console.WriteLine("Enter the number of the task you want to delete:");
+            if (int.TryParse(Console.ReadLine(), out int taskNumber) 
+                && taskNumber > 0 
+                && taskNumber <= tasks.Count)
+            {
+                tasks.RemoveAt(taskNumber - 1);
+            }
+            else
+            {
+                Console.WriteLine("Invalid task number. Try again.");
+            }
+        }
+    }
+}
